@@ -10,22 +10,23 @@ import java.util.List;
 
 public class Main {
 
-private static String getHTMLFrom(String urlAdress) throws MalformedURLException {
-    String textFromUrl = "";
-    List<String> resultText = new ArrayList<>();
-    URL url = new URL(urlAdress);
-
-    try(BufferedReader br = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream()))) {
-        while ((textFromUrl = br.readLine()) != null) {
-            resultText.add(textFromUrl + System.lineSeparator());
+    private static String getHTMLFrom(String urlAdress) throws MalformedURLException {
+        String textFromUrl = "";
+        StringBuilder resultText = new StringBuilder();
+        URL url = new URL(urlAdress);
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream()))){
+            while ((textFromUrl = br.readLine()) != null) {
+            resultText.append(textFromUrl+"\n");
             }
-        } catch (IOException e) {
-        e.printStackTrace();
-    }
-    return resultText.toString();
+        }
+            catch (IOException e) {
+                e.printStackTrace();
+                }
+        return resultText.toString();
     }
 
     public static void main(String[] args) throws IOException {
         System.out.println(getHTMLFrom("http://www.espreso.tv"));
     }
+
 }
